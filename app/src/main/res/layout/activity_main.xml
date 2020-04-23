@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#e9e9e9"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <include
+        layout="@layout/toolbar_common"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:gravity="right"
+                android:text=""
+                android:textColor="@color/black"
+                android:textSize="15dp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="20dp"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="ATTENDANCE"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="15dp"
+                    android:textStyle="bold" />
+
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:scrollbars="none">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:id="@+id/ll_mark_attendance"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginBottom="10dp"
+                            android:background="@drawable/drawable_border"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="35dp"
+                                android:layout_height="35dp"
+                                android:background="@drawable/drawable_circle"
+                                android:backgroundTint="#c25151"
+                                android:gravity="center">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="MA"
+                                    android:textColor="@color/white"
+                                    android:textSize="15dp"
+                                    android:visibility="visible" />
+                            </LinearLayout>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dp"
+                                android:layout_marginTop="2dp"
+                                android:layout_marginRight="5dp"
+                                android:gravity="center"
+                                android:text="Mark Attendance"
+                                android:textColor="#000"
+                                android:textSize="13dp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/ll_view_attendance"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginBottom="10dp"
+                            android:background="@drawable/drawable_border"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="35dp"
+                                android:layout_height="35dp"
+                                android:background="@drawable/drawable_circle"
+                                android:backgroundTint="#58b9e6"
+                                android:gravity="center">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="VA"
+                                    android:textColor="@color/white"
+                                    android:textSize="15dp"
+                                    android:visibility="visible" />
+                            </LinearLayout>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dp"
+                                android:layout_marginTop="2dp"
+                                android:layout_marginRight="5dp"
+                                android:gravity="center"
+                                android:text="View Attendance"
+                                android:textColor="#000"
+                                android:textSize="13dp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/ll_track_attendance"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:background="@drawable/drawable_border"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="35dp"
+                                android:layout_height="35dp"
+                                android:background="@drawable/drawable_circle"
+                                android:backgroundTint="#943df1"
+                                android:gravity="center">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="TA"
+                                    android:textColor="@color/white"
+                                    android:textSize="15dp"
+                                    android:visibility="visible" />
+                            </LinearLayout>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dp"
+                                android:layout_marginTop="2dp"
+                                android:layout_marginRight="5dp"
+                                android:gravity="center"
+                                android:text="Track Attendance"
+                                android:textColor="#000"
+                                android:textSize="13dp" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </HorizontalScrollView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="20dp"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="LEAVE"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="15dp"
+                    android:textStyle="bold" />
+
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:scrollbars="none">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:id="@+id/ll_apply_leave"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginBottom="10dp"
+                            android:background="@drawable/drawable_border"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="35dp"
+                                android:layout_height="35dp"
+                                android:background="@drawable/drawable_circle"
+                                android:backgroundTint="#df8f6a"
+                                android:gravity="center">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="AL"
+                                    android:textColor="@color/white"
+                                    android:textSize="15dp"
+                                    android:visibility="visible" />
+                            </LinearLayout>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dp"
+                                android:layout_marginTop="2dp"
+                                android:layout_marginRight="5dp"
+                                android:gravity="center"
+                                android:text="Apply Leave"
+                                android:textColor="#000"
+                                android:textSize="13dp" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/ll_approve_leave"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginBottom="10dp"
+                            android:background="@drawable/drawable_border"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="35dp"
+                                android:layout_height="35dp"
+                                android:background="@drawable/drawable_circle"
+                                android:backgroundTint="#dc42ed"
+                                android:gravity="center">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="AL"
+                                    android:textColor="@color/white"
+                                    android:textSize="15dp"
+                                    android:visibility="visible" />
+                            </LinearLayout>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dp"
+                                android:layout_marginTop="2dp"
+                                android:layout_marginRight="5dp"
+                                android:gravity="center"
+                                android:text="Approve Leave"
+                                android:textColor="#000"
+                                android:textSize="13dp" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/ll_leave_request"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginBottom="10dp"
+                            android:background="@drawable/drawable_border"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="35dp"
+                                android:layout_height="35dp"
+                                android:background="@drawable/drawable_circle"
+                                android:backgroundTint="#8059f5"
+                                android:gravity="center">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="LR"
+                                    android:textColor="@color/white"
+                                    android:textSize="15dp"
+                                    android:visibility="visible" />
+                            </LinearLayout>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dp"
+                                android:layout_marginTop="2dp"
+                                android:layout_marginRight="5dp"
+                                android:gravity="center"
+                                android:text="Leave Request"
+                                android:textColor="#000"
+                                android:textSize="13dp" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </HorizontalScrollView>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
