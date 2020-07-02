@@ -11,8 +11,7 @@
         android:id="@+id/txtTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/app_name"
-
+android:background="@drawable/itpl_logo"
         android:textColor="@color/colorPrimary"
         android:textSize="23dp"
         android:textStyle="bold" />
