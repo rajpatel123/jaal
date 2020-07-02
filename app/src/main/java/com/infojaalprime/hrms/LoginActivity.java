@@ -10,13 +10,17 @@ import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.telephony.TelephonyManager;
+import android.text.TextUtils;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +30,9 @@ import com.google.gson.GsonBuilder;
 import com.infojaalprime.hrms.attendance_model.mark_attendance_model.MarkAttendanceModel;
 import com.infojaalprime.hrms.interfaces.ApiFetcher;
 import com.infojaalprime.hrms.logger.Logger;
+import com.infojaalprime.hrms.models.login_model.CompanyListModel;
+import com.infojaalprime.hrms.models.login_model.Datum;
+import com.infojaalprime.hrms.models.login_model.Datumm;
 import com.infojaalprime.hrms.models.login_model.LoginModel;
 import com.infojaalprime.hrms.manager.ApiManager;
 import com.infojaalprime.hrms.manager.SessionManager;
@@ -43,16 +50,18 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     ImageView image_hide, image_show;
     LinearLayout ll_password;
     TextView txtTitle;
-
+Spinner companySpinner;
     SessionManager sessionManager;
     ProgressDialog progressDialog;
     ApiManager apiManager;
     LoginModel attendanceRequiredModel;
 
-    String unique_id = "", version_name = "";
+    String unique_id = "", version_name = "",companyCode="";
     int version_code;
 
     TrackingDatabase trackingDatabase;
+    private CompanyListModel companyListModel;
+    private Datumm comanyData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +72,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         sessionManager = new SessionManager(this);
         apiManager = new ApiManager(this);
+
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Please wait...");
         progressDialog.setCancelable(false);
@@ -75,6 +85,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         txtTitle = findViewById(R.id.txtTitle);
         image_hide = findViewById(R.id.image_hide);
         image_show = findViewById(R.id.image_show);
+        companySpinner = findViewById(R.id.companyList);
 
         btnLogin.setOnClickListener(this);
         image_hide.setOnClickListener(this);
@@ -102,19 +113,24 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         } catch (PackageManager.NameNotFoundException e) {
             Logger.e("Exception     " + e.toString());
         }
+        apiManager.set_interface_context_get("company", ServiceUrls.URL_COMPANY_PROFILE);
+
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btnLogin:
-                if (edtCode.getText().toString().equals("")) {
+
+                if (TextUtils.isEmpty(companyCode)) {
+                    Utils.showToastMessage(this, "Please select Company");
+                }else if (edtCode.getText().toString().equals("")) {
                     Utils.showToastMessage(this, "Please Enter Employee Code");
                 } else if (edtPassword.getText().toString().equals("")) {
                     Utils.showToastMessage(this, "Please Enter Password");
                 } else {
                     String[] key2 = {"UserCode", "Password", "CompanyCode", "IMEINo", "OSVersion", "HandSetName", "AppVersion"};
-                    String[] value2 = {edtCode.getText().toString(), edtPassword.getText().toString(), "gobolt", unique_id, Build.VERSION.RELEASE, android.os.Build.MODEL, version_code + ""};
+                    String[] value2 = {edtCode.getText().toString(), edtPassword.getText().toString(), comanyData.getCompcode(), unique_id, Build.VERSION.RELEASE, android.os.Build.MODEL, version_code + ""};
                     apiManager.set_interface_context_post(key2, value2, "URL_LOGIN", ServiceUrls.URL_LOGIN);
                 }
                 break;
@@ -202,6 +218,22 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     Toast.makeText(this, "" + markAttendanceModel.getMessage(), Toast.LENGTH_SHORT).show();
                     Utils.showLog("Fail", markAttendanceModel.getMessage());
                 }
+            }else if(apiName.equals("company")){
+                companyListModel = gson.fromJson(response, CompanyListModel.class);
+                ArrayAdapter<Datumm> adapter = new ArrayAdapter<Datumm>(this,
+                        android.R.layout.simple_spinner_item, companyListModel.getData());
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                companySpinner.setAdapter(adapter);
+                companySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                         comanyData = (Datumm) parent.getSelectedItem();
+                        companyCode = comanyData.getCompcode();
+                    }
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+                    }
+                });
             }
         } catch (Exception e) {
             Utils.showLog("Exception", e.toString());
