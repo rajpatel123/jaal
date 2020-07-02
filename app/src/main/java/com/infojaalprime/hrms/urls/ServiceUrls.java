@@ -2,7 +2,7 @@ package com.infojaalprime.hrms.urls;
 
 public class ServiceUrls {
 
-    private static String BASE_URL = "http://103.13.97.213/gobolt/WebService/";
+    private static String BASE_URL = "http://103.13.97.213/itpl/WebService/";
 
     ///////////////////////////////////////////////
 
@@ -11,6 +11,7 @@ public class ServiceUrls {
 
     ///////////////////////////////////////////////
 
+    public static final String URL_COMPANY_PROFILE = BASE_URL  + "EmpPunches.asmx/GetCompanyList";
     public static final String URL_LOGIN = BASE_URL + MARK_ATTENDANCE + "NewEmployeeLogin";
     public static final String URL_LOGOUT = BASE_URL + MARK_ATTENDANCE + "NewEmployeeLogout";
     public static final String URL_APP_VERSION = BASE_URL + MARK_ATTENDANCE + "CheckAppVersion";
