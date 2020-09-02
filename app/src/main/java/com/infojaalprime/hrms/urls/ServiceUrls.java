@@ -2,7 +2,7 @@ package com.infojaalprime.hrms.urls;
 
 public class ServiceUrls {
 
-    private static String BASE_URL = "http://103.13.97.213/gobolt/WebService/";
+    private static String BASE_URL = "http://103.13.97.213/HR_Demo/WebService/";
 
     ///////////////////////////////////////////////
 
@@ -19,6 +19,7 @@ public class ServiceUrls {
     public static String URL_ATTENDANCE_REQUIRED = BASE_URL + MARK_ATTENDANCE + "Attendance_Required";
     //    public static String URL_INSERT_APPLY_ATTENDANCE = BASE_URL + MARK_ATTENDANCE + "InsertApplyAttendance";
     public static String URL_INSERT_APPLY_ATTENDANCE = BASE_URL + MARK_ATTENDANCE + "InsertNewApplyAttendance";
+    public static String URL_INSERT_APPLY_ATTENDANCE_ERROR = BASE_URL + MARK_ATTENDANCE + "InsertAttendanceErrorLog";
     //    public static String URL_INSERT_ATTENDANCE_TRACKING = BASE_URL + MARK_ATTENDANCE + "InsertAttendanceTracking";
     public static String URL_INSERT_ATTENDANCE_TRACKING = BASE_URL + MARK_ATTENDANCE + "InsertNewAttendanceTracking";
     public static String URL_POPULATE_MONTH = BASE_URL + MARK_ATTENDANCE + "PopulateMonth";

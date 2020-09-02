@@ -1,5 +1,6 @@
 package com.infojaalprime.hrms.attendance;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -59,6 +60,7 @@ import com.infojaalprime.hrms.urls.ServiceUrls;
 
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPReply;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -205,11 +207,20 @@ public class MarkAttendanceActivity extends AppCompatActivity implements ApiFetc
         btn_mark_attendance.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                JSONObject jsonObject = new JSONObject();
+
+
                 try {
 
                     if (latitude_api.equals("") || longitude_api.equals("")) {
+
+                        jsonObject.put("latfromserver", "");
+                        jsonObject.put("longfromserver", "");
 //                        Latitude and longitude are empty from backend so no need to get distance
                     } else {
+                        jsonObject.put("latfromserver", latitude_api);
+                        jsonObject.put("longfromserver", longitude_api);
                         Location.distanceBetween(Double.parseDouble(latitude_api), Double.parseDouble(longitude_api), latitude, longitude, results);
                     }
 
@@ -222,16 +233,18 @@ public class MarkAttendanceActivity extends AppCompatActivity implements ApiFetc
 //                    }
 
                     else if (!isRequiredDistanceCheck.equals("NO") && (results[0] > distance_api)) {
+                        jsonObject.put("isRequiredDistanceCheck", isRequiredDistanceCheck);
+                        jsonObject.put("results[0]", results[0]);
+                        jsonObject.put("empid", emp_id);
+                        jsonObject.put("distance_api", distance_api);
+                        jsonObject.put("condition", "!isRequiredDistanceCheck.equals(\"NO\") && (results[0] > distance_api)" + !isRequiredDistanceCheck.equals("NO") + " and " + (results[0] > distance_api));
                         Toast.makeText(MarkAttendanceActivity.this, "You are Out of range!!", Toast.LENGTH_SHORT).show();
+                        apiManager.set_interface_context_get("URL_INSERT_APPLY_ATTENDANCE_ERROR", ServiceUrls.URL_INSERT_APPLY_ATTENDANCE_ERROR+"?fk_empid="+emp_id+"&Doc="+jsonObject.toString());
+
                     } else if (!isRequiredPhotoCheck.equals("NO") && file_path.equals("")) {
                         Toast.makeText(MarkAttendanceActivity.this, "Please Capture Image", Toast.LENGTH_SHORT).show();
                     }
-
-//                    else {
-//                        postData();
-//                    }
-
-                    else if (!isRequiredPhotoCheck.equals("NO")) {
+                else if (!isRequiredPhotoCheck.equals("NO")) {
                         new SendFileToServer().execute();
                     } else {
                         String xml = makeInsertSuspectRequestXML();
@@ -239,10 +252,15 @@ public class MarkAttendanceActivity extends AppCompatActivity implements ApiFetc
                         String[] key2 = {"Doc"};
                         String[] value2 = {xml};
                         apiManager.set_interface_context_post(key2, value2, "URL_INSERT_APPLY_ATTENDANCE", ServiceUrls.URL_INSERT_APPLY_ATTENDANCE);
+                        apiManager.set_interface_context_get("URL_INSERT_APPLY_ATTENDANCE_ERROR", ServiceUrls.URL_INSERT_APPLY_ATTENDANCE_ERROR+"?fk_empid="+emp_id+"&Doc="+xml);
+
+
                     }
                 } catch (Exception e) {
                     Toast.makeText(MarkAttendanceActivity.this, "" + e.toString(), Toast.LENGTH_SHORT).show();
                 }
+
+
             }
         });
 
@@ -335,14 +353,17 @@ public class MarkAttendanceActivity extends AppCompatActivity implements ApiFetc
                 MarkAttendanceModel markAttendanceModel = gson.fromJson(response, MarkAttendanceModel.class);
                 if (markAttendanceModel.getStatus().toString().equals("Successed")) {
                     Toast.makeText(this, "" + markAttendanceModel.getMessage(), Toast.LENGTH_SHORT).show();
+
                     finish();
                 } else {
                     Toast.makeText(this, "" + markAttendanceModel.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         } catch (Exception e) {
-            Toast.makeText(this, "Exception :"+e.toString(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Exception :" + e.toString(), Toast.LENGTH_SHORT).show();
             Utils.showLog("Exception", e + "");
+            apiManager.set_interface_context_get("URL_INSERT_APPLY_ATTENDANCE_ERROR", ServiceUrls.URL_INSERT_APPLY_ATTENDANCE_ERROR+"?fk_empid="+emp_id+"&Doc="+"Exception"+e );
+
         }
     }
 
@@ -517,6 +538,16 @@ public class MarkAttendanceActivity extends AppCompatActivity implements ApiFetc
     }
 
     protected void startLocationUpdates() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
         LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
     }
 

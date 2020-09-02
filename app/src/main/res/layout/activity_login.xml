@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/parent_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,14 +8,13 @@
     android:orientation="vertical"
     android:padding="15dp">
 
-    <TextView
+    <ImageView
         android:id="@+id/txtTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="INFOJAAL PRIME"
+        app:srcCompat="@drawable/patanjali_logo"
         android:textColor="@color/colorPrimary"
-        android:textSize="23dp"
-        android:textStyle="bold" />
+       />
 
     <EditText
         android:id="@+id/edtCode"

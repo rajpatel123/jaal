@@ -7,6 +7,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.telephony.TelephonyManager;
@@ -42,7 +43,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     Button btnLogin;
     ImageView image_hide, image_show;
     LinearLayout ll_password;
-    TextView txtTitle;
+    ImageView txtTitle;
 
     SessionManager sessionManager;
     ProgressDialog progressDialog;
@@ -81,11 +82,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         image_show.setOnClickListener(this);
 
         try {
-            TelephonyManager telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
-            if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
-                return;
-            }
-            unique_id = telephonyManager.getDeviceId();
+            unique_id = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
 
             Logger.e("unique_id     " + unique_id);
         } catch (Exception e) {
@@ -114,7 +111,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     Utils.showToastMessage(this, "Please Enter Password");
                 } else {
                     String[] key2 = {"UserCode", "Password", "CompanyCode", "IMEINo", "OSVersion", "HandSetName", "AppVersion"};
-                    String[] value2 = {edtCode.getText().toString(), edtPassword.getText().toString(), "gobolt", unique_id, Build.VERSION.RELEASE, android.os.Build.MODEL, version_code + ""};
+                    String[] value2 = {edtCode.getText().toString(), edtPassword.getText().toString(), "pppl", unique_id, Build.VERSION.RELEASE, android.os.Build.MODEL, version_code + ""};
                     apiManager.set_interface_context_post(key2, value2, "URL_LOGIN", ServiceUrls.URL_LOGIN);
                 }
                 break;
