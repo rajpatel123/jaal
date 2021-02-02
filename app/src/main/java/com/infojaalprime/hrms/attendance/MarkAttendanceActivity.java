@@ -212,6 +212,7 @@ public class MarkAttendanceActivity extends AppCompatActivity implements ApiFetc
 
 
                 try {
+                    jsonObject.put("Date", ""+System.currentTimeMillis());
 
                     if (latitude_api.equals("") || longitude_api.equals("")) {
 
@@ -221,6 +222,13 @@ public class MarkAttendanceActivity extends AppCompatActivity implements ApiFetc
                     } else {
                         jsonObject.put("latfromserver", latitude_api);
                         jsonObject.put("longfromserver", longitude_api);
+
+
+                        jsonObject.put("latfromUser", latitude);
+                        jsonObject.put("longfromUser", longitude);
+
+
+
                         Location.distanceBetween(Double.parseDouble(latitude_api), Double.parseDouble(longitude_api), latitude, longitude, results);
                     }
 

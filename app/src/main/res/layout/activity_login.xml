@@ -11,7 +11,7 @@
     <ImageView
         android:id="@+id/txtTitle"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="100dp"
         app:srcCompat="@drawable/patanjali_logo"
         android:textColor="@color/colorPrimary"
        />

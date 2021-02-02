@@ -2,7 +2,7 @@ package com.infojaalprime.hrms.urls;
 
 public class ServiceUrls {
 
-    private static String BASE_URL = "http://103.13.97.213/HR_Demo/WebService/";
+    private static String BASE_URL = "http://103.13.97.213/pppl/WebService/";
 
     ///////////////////////////////////////////////
 
